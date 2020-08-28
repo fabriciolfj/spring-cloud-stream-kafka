@@ -1,0 +1,51 @@
+
+spring:
+  application:
+    name: estudo_kafka
+  cloud:
+    stream:
+      binders:
+        kafka:
+          type: kafka
+      bindings:
+        output-pessoa-error:
+          destination: topic-pessoa-error
+          group: '${spring.application.name}'
+        input-pessoa-error:
+          destination: topic-pessoa-error
+          group: '${spring.application.name}'
+          consumer:
+            autoCommitOffset: true
+        output-pessoa:
+          destination: topic-pessoa
+          group: '${spring.application.name}'
+        input-pessoa:
+          destination: topic-pessoa
+          group: '${spring.application.name}'
+          consumer:
+            autoCommitOffset: true
+        output-pessoa-mod:
+          destination: topic-pessoa-mod
+          group: '${spring.application.name}'
+        input-pessoa-mod:
+          destination: topic-pessoa-mod
+          group: '${spring.application.name}'
+      kafka:
+        output-pessoa:
+          destination: topic-pessoa
+          group: '${spring.application.name}'
+          input-pessoa:
+            destination: topic-pessoa
+            group: '${spring.application.name}'
+            consumer:
+              autoCommitOffset: true
+        binder:
+          headers:
+            - x-retries
+          brokers: localhost
+          defaultBrokerPort: 9092
+          health-timeout: 30
+          auto-create-topics: true
+          auto-add-partitions: true
+
+
